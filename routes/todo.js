@@ -15,10 +15,11 @@ router.get("/server", (req, res) => {
 });
 
 // CREATE a New Todo //
+
 router.post('/Todo', async (req, res,) => {
    
 
-  console.log('insdie the todo list route')
+  console.log('inside the todo list route')
   const todo = new Todo({
     
     title: req.body.title,
@@ -36,20 +37,25 @@ router.post('/Todo', async (req, res,) => {
     res.status(400).json({ message: err.message });
   }
 });
-
-
-
-
 // GET All Todos //
-router.post('/List', async (req, res, next) => {
+router.get('/List', async (req, res, next) => {
    // destructure page and limit and set default values
    const { page = 1, limit = 10 } = req.query;
 
    try {
 
    //  var id = new require('mongodb').ObjectID(req.userId);//req.params.id
-
+   const { email } = req.body;
    var Users = await Todo.find({email:req.body.email});
+
+     // Filter by completed status if specified in query params
+     const completed = req.query.completed;
+     const filter = completed === 'true' ? { completed: true } :
+                    completed === 'false' ? { completed: false } :
+                    {};
+ 
+     // Find all TODO items for the current user
+     const todos = await Todo.find({ email, ...filter });
 
    // console.log(JSON.stringify(Users));
 
@@ -75,9 +81,10 @@ router.post('/List', async (req, res, next) => {
  });
 
 // GET a specific Todo //
-router.get('/:id', async (req, res) => {
+router.get('/User:id', async (req, res) => {
   try {
-    const todo = await Todo.findById();
+    const { id } = req.body;
+    const todo = await Todo.findById(id);
     return res.json({ todo });
 
 }catch (error) {
@@ -88,6 +95,7 @@ router.get('/:id', async (req, res) => {
 // Completed statement //
 router.put('/completed/:id', async (req, res) => {
   try {
+   
     const { id } = req.params;
     const { completed } = req.body;
     const todo = await Todo.findById(id);
@@ -105,11 +113,12 @@ router.put('/completed/:id', async (req, res) => {
 
 // UPDATE a todo
 router.patch('/update/:id', async (req, res) => {
-
+ 
+  try {
+    const { email } = req.body;
   const { id } = req.params;
   const title = req.body;
-  try {
-      const todo = await Todo.findByIdAndUpdate(id,title, {new: true });
+      const todo = await Todo.findByIdAndUpdate(id,title,email, {new: true });
       if( !todo){
       return res.status(404).json({error: 'user not found'});
       }
@@ -119,11 +128,42 @@ router.patch('/update/:id', async (req, res) => {
   }
 });
 
+// Update a TODO item by ID
+router.put('/todos/:id', async (req, res) => {
+  try {
+    const { title, description, completed } = req.body;
+    const todoId = req.params.id;
+    const { email } = req.body;
+    var Users = await Todo.find({email:req.body.email});
+
+    // Get the user ID from the JWT token
+    //const { userId } = jwt.verify(req.headers.authorization, 'secret');
+
+    // Find the TODO item by ID and user ID
+    const todo = await Todo.findOne({ _id: todoId, email });
+    if (!todo) {
+      return res.status(404).json({ message: 'TODO item not found' });
+    }
+
+    // Update the TODO item and save
+    todo.title = title || todo.title;
+    todo.description = description || todo.description;
+    todo.completed = completed === undefined ? todo.completed : completed;
+    await todo.save();
+
+    res.json(todo);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Delete Todo //
 router.delete('/delete/:id', async (req, res) => {
     try {
+      const { email } = req.body;
       const { id } = req.params;
-      const todo = await Todo.findById(id);
+      const todo = await Todo.findById(id,email);
       console.log(todo);
       if (!todo) {
         return res.status(404).json({ msg: 'Todo not found' });
@@ -135,6 +175,6 @@ router.delete('/delete/:id', async (req, res) => {
       res.status(400).json({ message: err.message });
     }
 });
-
+ 
 
 module.exports = router;
