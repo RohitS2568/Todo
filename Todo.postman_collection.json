@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "4bca240b-b9e2-4467-a4ad-ebf4e012c9b4",
+		"name": "Todo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:4000/api/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"email\":\"Rahul@gmail.com\",\r\n    \"password\":\"123456\"\r\n}\r\n  \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/user/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/user/sign-in",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"email\":\"Rahul@gmail.com\",\r\n    \"password\":\"123456\"\r\n}\r\n  \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/user/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/todo/Todo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Task12\",\r\n    \"description\":\"Create a Todo list task using nodejs and reactjs\",\r\n    \"email\":\"Rahul@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/todo/Todo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"todo",
+						"Todo"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/auth/login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"email\":\"Rahul@gmail.com\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/todo/List?page=1&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"todo",
+						"List"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/todo/update/64253d25dbc89fd6d4ad3e74",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"email\":\"Rahul@gmail.com\"\r\n    \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/todo/update/64253d25dbc89fd6d4ad3e74",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"todo",
+						"update",
+						"64253d25dbc89fd6d4ad3e74"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/todo/update/64253d61dbc89fd6d4ad3e7b",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQyNDgxOWU2MjI2YTExNDhjYTYyMGNhIiwiZW1haWwiOiJSYW00QGdtYWlsLmNvbSIsImlhdCI6MTY4MDExNDc5MCwiZXhwIjoxNjgwMTIxOTkwfQ.fXcTqO8ipktbzE-hKQghEwUtgVYx2hji2a56Qv__e7o",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjUwY2ExNjg2ZmNiOWU0YWZhYjdhYiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODAxNTU5NzcsImV4cCI6MTY4MDQxNTE3N30.1Pa8Aqq1FJFC1nlGU2Ayx6PZdf_UesF3aZBJzKhi9JI",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\":\"data\"\r\n   \r\n  \r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/todo/update/64253d61dbc89fd6d4ad3e7b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"todo",
+						"update",
+						"64253d61dbc89fd6d4ad3e7b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/todo/completed/64241defe96e400b375319e7",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"completed\":\"yes\" \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/todo/completed/64241defe96e400b375319e7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"todo",
+						"completed",
+						"64241defe96e400b375319e7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
